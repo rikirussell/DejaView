@@ -53,10 +53,9 @@ export default function CameraScreen() {
   }, []);
 
   const requestPermissions = async () => {
-    const { status: cameraStatus } = await useCameraPermissions();
     const { status: mediaStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     
-    if (cameraStatus !== 'granted' || mediaStatus !== 'granted') {
+    if (!permission || mediaStatus !== 'granted') {
       Alert.alert(
         'Permissions Required',
         'DejaView needs camera and photo library access to work properly.',
