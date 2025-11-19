@@ -56,6 +56,14 @@
         {
           "photosPermission": "DejaView needs access to your photos to load previous images for alignment."
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow DejaView to save photos to your library.",
+          "savePhotosPermission": "Allow DejaView to save photos to your library.",
+          "isAccessMediaLocationEnabled": true
+        }
       ]
     ],
     "experiments": {
