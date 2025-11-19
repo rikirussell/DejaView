@@ -44,6 +44,18 @@
           "resizeMode": "contain",
           "backgroundColor": "#000"
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "DejaView needs access to your camera to capture and align photos."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "DejaView needs access to your photos to load previous images for alignment."
+        }
       ]
     ],
     "experiments": {
