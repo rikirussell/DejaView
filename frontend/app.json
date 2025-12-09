@@ -64,7 +64,9 @@
           "savePhotosPermission": "Allow DejaView to save photos to your library.",
           "isAccessMediaLocationEnabled": true
         }
-      ]
+      ],
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
