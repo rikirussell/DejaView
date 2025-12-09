@@ -202,7 +202,7 @@ export default function CameraScreen() {
     try {
       // Convert to base64 for storage
       const base64 = await FileSystem.readAsStringAsync(uri, {
-        encoding: FileSystem.EncodingType.Base64,
+        encoding: 'base64',
       });
 
       // Get existing photos
