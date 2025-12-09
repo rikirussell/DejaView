@@ -79,7 +79,7 @@ export default function GalleryScreen() {
       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
       
       await FileSystem.writeAsStringAsync(filepath, base64Data, {
-        encoding: FileSystem.EncodingType.Base64,
+        encoding: 'base64',
       });
 
       // Save to media library
@@ -107,7 +107,7 @@ export default function GalleryScreen() {
       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
       
       await FileSystem.writeAsStringAsync(filepath, base64Data, {
-        encoding: FileSystem.EncodingType.Base64,
+        encoding: 'base64',
       });
 
       await Sharing.shareAsync(filepath);
