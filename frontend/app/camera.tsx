@@ -143,10 +143,7 @@ export default function CameraScreen() {
   };
 
   const capturePhoto = async () => {
-    if (!cameraRef.current || !isCameraReady) {
-      Alert.alert('Please wait', 'Camera is initializing...');
-      return;
-    }
+    if (!cameraRef.current) return;
 
     try {
       const photo = await cameraRef.current.takePictureAsync({
@@ -162,7 +159,7 @@ export default function CameraScreen() {
       }
     } catch (error) {
       console.error('Error capturing photo:', error);
-      Alert.alert('Error', 'Failed to capture photo');
+      Alert.alert('Error', 'Failed to capture photo. Please try again.');
     }
   };
 
