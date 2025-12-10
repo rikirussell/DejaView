@@ -205,11 +205,9 @@ export default function CameraScreen() {
 
       if (!cameraPhoto) return;
 
-      // Step 2: Use ImageManipulator to create blend
-      // Load the overlay image and resize to match camera dimensions
-      const [cameraImage] = await Promise.all([
-        Image.getSize(cameraPhoto.uri)
-      ]);
+      // Step 2: For now, just save the camera photo
+      // True pixel blending requires native modules or canvas processing
+      // The overlay serves as a reference during capture
       
       // Process overlay to match camera size
       const processedOverlay = await ImageManipulator.manipulateAsync(
