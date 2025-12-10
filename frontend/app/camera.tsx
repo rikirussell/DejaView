@@ -680,4 +680,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
+  aspectRatioButton: {
+    position: 'absolute',
+    top: 50,
+    right: 80,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'white',
+  },
+  aspectRatioText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
+  },
 });
