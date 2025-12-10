@@ -383,58 +383,64 @@ export default function CameraScreen() {
 
           {/* Bottom Controls */}
           <View style={styles.bottomControls}>
-            {overlayImage ? (
-              <>
-                <TouchableOpacity
-                  style={styles.controlButton}
-                  onPress={clearOverlay}
-                >
-                  <Ionicons name="trash-outline" size={24} color="white" />
-                  <Text style={styles.controlButtonText}>Clear</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.controlButton}
+              onPress={overlayImage ? clearOverlay : pickImage}
+            >
+              <Ionicons 
+                name={overlayImage ? "trash-outline" : "images-outline"} 
+                size={24} 
+                color="white" 
+              />
+              <Text style={styles.controlButtonText}>
+                {overlayImage ? "Clear" : "Load"}
+              </Text>
+            </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.captureButton}
-                  onPress={capturePhoto}
-                >
-                  <View style={styles.captureButtonInner} />
-                </TouchableOpacity>
+            <View style={styles.centerButtons}>
+              <TouchableOpacity
+                style={[
+                  styles.captureButton,
+                  isRecording && styles.recordingButton
+                ]}
+                onPress={toggleRecording}
+              >
+                <View style={[
+                  styles.captureButtonInner,
+                  isRecording && styles.recordingInner
+                ]} />
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.controlButton}
-                  onPress={blendImages}
-                >
-                  <Ionicons name="git-merge-outline" size={24} color="white" />
-                  <Text style={styles.controlButtonText}>Blend</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <TouchableOpacity
-                  style={styles.controlButton}
-                  onPress={pickImage}
-                >
-                  <Ionicons name="images-outline" size={24} color="white" />
-                  <Text style={styles.controlButtonText}>Load</Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.photoButton}
+                onPress={capturePhoto}
+              >
+                <Ionicons name="camera" size={20} color="white" />
+              </TouchableOpacity>
+            </View>
 
-                <TouchableOpacity
-                  style={styles.captureButton}
-                  onPress={capturePhoto}
-                >
-                  <View style={styles.captureButtonInner} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={styles.controlButton}
-                  onPress={() => setFacing(facing === 'back' ? 'front' : 'back')}
-                >
-                  <Ionicons name="camera-reverse-outline" size={24} color="white" />
-                  <Text style={styles.controlButtonText}>Flip</Text>
-                </TouchableOpacity>
-              </>
-            )}
+            <TouchableOpacity
+              style={styles.controlButton}
+              onPress={overlayImage ? blendImages : () => setFacing(facing === 'back' ? 'front' : 'back')}
+            >
+              <Ionicons 
+                name={overlayImage ? "git-merge-outline" : "camera-reverse-outline"} 
+                size={24} 
+                color="white" 
+              />
+              <Text style={styles.controlButtonText}>
+                {overlayImage ? "Blend" : "Flip"}
+              </Text>
+            </TouchableOpacity>
           </View>
+
+          {/* Recording Indicator */}
+          {isRecording && (
+            <View style={styles.recordingIndicator}>
+              <View style={styles.recordingDot} />
+              <Text style={styles.recordingText}>Recording...</Text>
+            </View>
+          )}
         </CameraView>
       </View>
     </GestureHandlerRootView>
