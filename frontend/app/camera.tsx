@@ -162,62 +162,73 @@ export default function CameraScreen() {
   };
 
   const blendImages = async () => {
-    if (!cameraRef.current || !overlayImage) {
+    if (!cameraViewRef.current || !overlayImage) {
       Alert.alert('Error', 'Please load a reference image first');
       return;
     }
 
     try {
-      Alert.alert('Processing', 'Blending images...', [{ text: 'OK' }]);
-
-      // Step 1: Capture the current camera frame at full resolution
-      const cameraPhoto = await cameraRef.current.takePictureAsync({
-        quality: 1,
-        skipProcessing: false,
-        exif: true,
-      });
-
-      if (!cameraPhoto) return;
-
-      // Step 2: Read both images with Jimp
-      const baseImage = await Jimp.read(cameraPhoto.uri);
-      const overlayImg = await Jimp.read(overlayImage);
-
-      // Step 3: Resize overlay to match base image dimensions
-      overlayImg.resize(baseImage.getWidth(), baseImage.getHeight());
-
-      // Step 4: Apply the opacity from slider to the overlay
-      // overlayOpacity ranges from 0 to 1
-      overlayImg.opacity(overlayOpacity);
-
-      // Step 5: Composite the images - overlay on top of camera image
-      baseImage.composite(overlayImg, 0, 0, {
-        mode: Jimp.BLEND_SOURCE_OVER,
-        opacitySource: 1.0,
-        opacityDest: 1.0,
-      });
-
-      // Step 6: Save the blended image
-      const blendedPath = `${FileSystem.cacheDirectory}blended_${Date.now()}.jpg`;
-      const base64 = await baseImage.getBase64Async(Jimp.MIME_JPEG);
+      // Hide UI elements temporarily
+      const guidesWereVisible = showGuides;
+      setShowGuides(false);
       
-      // Remove data URI prefix and write to file
-      const base64Data = base64.split(',')[1];
-      await FileSystem.writeAsStringAsync(blendedPath, base64Data, {
-        encoding: FileSystem.EncodingType.Base64,
+      // Wait for UI to update
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Capture the view with camera + overlay (but no UI)
+      const uri = await captureRef(cameraViewRef, {
+        format: 'jpg',
+        quality: 1.0,
+        result: 'tmpfile',
       });
 
-      // Step 7: Save to Photos
-      await savePhotoToLibrary(blendedPath, true);
+      // Restore UI
+      if (guidesWereVisible) {
+        setShowGuides(true);
+      }
+
+      // Save to Photos
+      await savePhotoToLibrary(uri, true);
       
       Alert.alert(
         'Success',
-        `Blended image saved to Photos! (${Math.round(overlayOpacity * 100)}% blend)`,
+        `Blended image saved! (${Math.round(overlayOpacity * 100)}% overlay opacity)`,
         [{ text: 'OK' }]
       );
     } catch (error) {
       console.error('Error blending images:', error);
-      Alert.alert('Error', `Failed to blend images: ${error.message}`);
+      setShowGuides(showGuides); // Restore on error
+      Alert.alert('Error', 'Failed to blend images. Please try again.');
+    }
+  };
+
+  const toggleRecording = async () => {
+    if (!cameraRef.current) return;
+
+    try {
+      if (isRecording) {
+        // Stop recording
+        cameraRef.current.stopRecording();
+        setIsRecording(false);
+      } else {
+        // Start recording
+        setIsRecording(true);
+        const video = await cameraRef.current.recordAsync({
+          maxDuration: 300, // 5 minutes max
+          quality: '1080p',
+        });
+
+        if (video) {
+          // Save to Photos
+          await savePhotoToLibrary(video.uri, false);
+          Alert.alert('Success', 'Video saved to Photos!');
+        }
+        setIsRecording(false);
+      }
+    } catch (error) {
+      console.error('Error recording video:', error);
+      setIsRecording(false);
+      Alert.alert('Error', 'Failed to record video');
     }
   };
 
