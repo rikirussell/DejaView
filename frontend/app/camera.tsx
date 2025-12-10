@@ -143,12 +143,15 @@ export default function CameraScreen() {
   };
 
   const capturePhoto = async () => {
-    if (!cameraRef.current) return;
+    if (!cameraRef.current || !isCameraReady) {
+      Alert.alert('Please wait', 'Camera is initializing...');
+      return;
+    }
 
     try {
       const photo = await cameraRef.current.takePictureAsync({
         quality: 1,
-        skipProcessing: false,
+        skipProcessing: true,  // Get full native resolution
         exif: true,
       });
 
