@@ -207,19 +207,18 @@ export default function CameraScreen() {
   const toggleRecording = async () => {
     if (!cameraRef.current) return;
 
-    if (!isCameraReady) {
-      Alert.alert('Please wait', 'Camera is still initializing...');
-      return;
-    }
-
     try {
       if (isRecording) {
         // Stop recording
         cameraRef.current.stopRecording();
         setIsRecording(false);
       } else {
-        // Start recording
+        // Start recording with delay workaround
         setIsRecording(true);
+        
+        // Small delay to ensure camera is ready (workaround for SDK bug)
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         const video = await cameraRef.current.recordAsync({
           maxDuration: 300, // 5 minutes max
           videoBitrate: 10000000, // 10 Mbps for high quality
@@ -233,10 +232,14 @@ export default function CameraScreen() {
         }
         setIsRecording(false);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error recording video:', error);
       setIsRecording(false);
-      Alert.alert('Error', 'Failed to record video');
+      if (error.message?.includes('not ready')) {
+        Alert.alert('Error', 'Camera needs more time to initialize. Please wait a moment and try again.');
+      } else {
+        Alert.alert('Error', 'Failed to record video. Please try again.');
+      }
     }
   };
 
