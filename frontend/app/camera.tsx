@@ -253,7 +253,7 @@ export default function CameraScreen() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.container} ref={cameraViewRef} collapsable={false}>
         {/* Camera View */}
         <CameraView
           ref={cameraRef}
