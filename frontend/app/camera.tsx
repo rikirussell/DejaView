@@ -199,26 +199,27 @@ export default function CameraScreen() {
     }
   };
 
-  const savePhoto = async (uri: string, isBlended: boolean) => {
+  const savePhotoToLibrary = async (uri: string, isBlended: boolean) => {
     try {
-      // Get existing photos
-      const existingPhotos = await AsyncStorage.getItem('dejaview_photos');
-      const photos = existingPhotos ? JSON.parse(existingPhotos) : [];
+      // Request media library permissions
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Need permission to save photos to your library');
+        return;
+      }
 
-      // Add new photo with URI (no base64 conversion needed)
-      photos.unshift({
-        id: Date.now().toString(),
-        uri: uri,
-        timestamp: new Date().toISOString(),
-        isBlended,
-      });
-
-      // Keep only last 50 photos to manage storage
-      const trimmedPhotos = photos.slice(0, 50);
-
-      await AsyncStorage.setItem('dejaview_photos', JSON.stringify(trimmedPhotos));
+      // Save to Photos
+      const asset = await MediaLibrary.createAssetAsync(uri);
+      
+      // Optionally create or add to a DejaView album
+      const album = await MediaLibrary.getAlbumAsync('DejaView');
+      if (album) {
+        await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+      } else {
+        await MediaLibrary.createAlbumAsync('DejaView', asset, false);
+      }
     } catch (error) {
-      console.error('Error saving photo:', error);
+      console.error('Error saving photo to library:', error);
       throw error;
     }
   };
