@@ -89,17 +89,8 @@ export default function GalleryScreen() {
         return;
       }
 
-      // Convert base64 to file
-      const filename = `dejaview_${photo.id}.jpg`;
-      const filepath = `${FileSystem.cacheDirectory}${filename}`;
-      
-      const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
-      
-      await FileSystem.writeAsStringAsync(filepath, base64Data, {
-        encoding: 'base64',
-      });
-
-      await Sharing.shareAsync(filepath);
+      // Share directly from URI
+      await Sharing.shareAsync(photo.uri);
     } catch (error) {
       console.error('Error sharing photo:', error);
       Alert.alert('Error', 'Failed to share photo');
