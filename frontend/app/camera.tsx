@@ -468,14 +468,24 @@ export default function CameraScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Recording Indicator */}
-          {isRecording && (
-            <View style={styles.recordingIndicator}>
-              <View style={styles.recordingDot} />
-              <Text style={styles.recordingText}>Recording...</Text>
-            </View>
-          )}
-        </CameraView>
+          </View>
+        </PinchGestureHandler>
+
+        {/* Recording Indicator */}
+        {isRecording && (
+          <View style={styles.recordingIndicator}>
+            <View style={styles.recordingDot} />
+            <Text style={styles.recordingText}>Recording...</Text>
+          </View>
+        )}
+
+        {/* Aspect Ratio Button */}
+        <TouchableOpacity
+          style={styles.aspectRatioButton}
+          onPress={cycleAspectRatio}
+        >
+          <Text style={styles.aspectRatioText}>{aspectRatio}</Text>
+        </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
   );
