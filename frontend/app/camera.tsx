@@ -341,9 +341,6 @@ export default function CameraScreen() {
               style={styles.camera}
               facing={facing}
               zoom={zoom}
-              ratio={aspectRatio}
-              onCameraReady={() => setIsCameraReady(true)}
-              enableTorch={false}
             />
           {/* Overlay Image with Gestures */}
           {overlayImage && (
