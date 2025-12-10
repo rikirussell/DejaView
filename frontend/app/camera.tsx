@@ -35,8 +35,10 @@ export default function CameraScreen() {
   const [overlayImage, setOverlayImage] = useState<string | null>(null);
   const [overlayOpacity, setOverlayOpacity] = useState(0.5);
   const [showGuides, setShowGuides] = useState(true);
+  const [isRecording, setIsRecording] = useState(false);
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
+  const blendViewRef = useRef<View>(null);
 
   // Gesture state for overlay manipulation
   const [overlayTransform, setOverlayTransform] = useState({
