@@ -71,19 +71,8 @@ export default function GalleryScreen() {
         return;
       }
 
-      // Convert base64 to file
-      const filename = `dejaview_${photo.id}.jpg`;
-      const filepath = `${FileSystem.cacheDirectory}${filename}`;
-      
-      // Remove data URI prefix if present
-      const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
-      
-      await FileSystem.writeAsStringAsync(filepath, base64Data, {
-        encoding: 'base64',
-      });
-
-      // Save to media library
-      const asset = await MediaLibrary.createAssetAsync(filepath);
+      // Save directly from URI
+      const asset = await MediaLibrary.createAssetAsync(photo.uri);
       
       Alert.alert('Success', 'Photo saved to camera roll!');
     } catch (error) {
