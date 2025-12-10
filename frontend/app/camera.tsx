@@ -52,6 +52,13 @@ export default function CameraScreen() {
 
   useEffect(() => {
     requestPermissions();
+    // Unlock all orientations for camera screen
+    ScreenOrientation.unlockAsync();
+    
+    return () => {
+      // Lock back to portrait when leaving camera
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    };
   }, []);
 
   const requestPermissions = async () => {
