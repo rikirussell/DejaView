@@ -61,9 +61,18 @@ export default function CameraScreen() {
     // Unlock all orientations for camera screen
     ScreenOrientation.unlockAsync();
     
+    // Set camera ready after safe delay (workaround for SDK bug)
+    readyTimeoutRef.current = setTimeout(() => {
+      setCameraReady(true);
+      console.log('Camera marked as ready');
+    }, 3000); // 3 seconds should be enough for camera initialization
+    
     return () => {
       // Lock back to portrait when leaving camera
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      if (readyTimeoutRef.current) {
+        clearTimeout(readyTimeoutRef.current);
+      }
     };
   }, []);
 
