@@ -485,6 +485,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  spacer: {
+    width: 44,
+  },
   opacityControl: {
     position: 'absolute',
     top: 120,
