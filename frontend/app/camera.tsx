@@ -210,6 +210,11 @@ export default function CameraScreen() {
   const toggleRecording = async () => {
     if (!cameraRef.current) return;
 
+    if (!isCameraReady) {
+      Alert.alert('Please wait', 'Camera is still initializing...');
+      return;
+    }
+
     try {
       if (isRecording) {
         // Stop recording
@@ -220,7 +225,8 @@ export default function CameraScreen() {
         setIsRecording(true);
         const video = await cameraRef.current.recordAsync({
           maxDuration: 300, // 5 minutes max
-          quality: '1080p',
+          videoBitrate: 10000000, // 10 Mbps for high quality
+          mute: false,
         });
 
         if (video) {
@@ -234,6 +240,23 @@ export default function CameraScreen() {
       console.error('Error recording video:', error);
       setIsRecording(false);
       Alert.alert('Error', 'Failed to record video');
+    }
+  };
+
+  const handlePinchZoom = (event: any) => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      const scale = event.nativeEvent.scale;
+      setZoom(Math.min(Math.max(zoom * scale, 0), 1));
+    }
+  };
+
+  const cycleAspectRatio = () => {
+    if (aspectRatio === '4:3') {
+      setAspectRatio('16:9');
+    } else if (aspectRatio === '16:9') {
+      setAspectRatio('1:1');
+    } else {
+      setAspectRatio('4:3');
     }
   };
 
