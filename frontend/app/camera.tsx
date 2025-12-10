@@ -488,14 +488,6 @@ export default function CameraScreen() {
             <Text style={styles.recordingText}>Recording...</Text>
           </View>
         )}
-
-        {/* Aspect Ratio Button */}
-        <TouchableOpacity
-          style={styles.aspectRatioButton}
-          onPress={cycleAspectRatio}
-        >
-          <Text style={styles.aspectRatioText}>{aspectRatio}</Text>
-        </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
   );
