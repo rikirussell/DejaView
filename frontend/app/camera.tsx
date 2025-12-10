@@ -37,12 +37,10 @@ export default function CameraScreen() {
   const [overlayOpacity, setOverlayOpacity] = useState(0.5);
   const [showGuides, setShowGuides] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
-  const [isCameraReady, setIsCameraReady] = useState(false);
   const [zoom, setZoom] = useState(0);
-  const [mode, setMode] = useState<'PHOTO' | 'VIDEO' | 'SLO-MO'>('PHOTO');
+  const [mode, setMode] = useState<'PHOTO' | 'VIDEO'>('PHOTO');
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
-  const modeScrollRef = useRef<ScrollView>(null);
 
   // Gesture state for overlay manipulation
   const [overlayTransform, setOverlayTransform] = useState({
