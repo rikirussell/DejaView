@@ -700,20 +700,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-  aspectRatioButton: {
+  modeSelector: {
     position: 'absolute',
-    top: 50,
-    right: 80,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'white',
+    bottom: 120,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 32,
   },
-  aspectRatioText: {
-    color: 'white',
-    fontSize: 14,
+  modeText: {
+    fontSize: 16,
+    color: 'rgba(255,255,255,0.5)',
+    fontWeight: '500',
+  },
+  modeTextActive: {
+    color: '#FFD60A',
     fontWeight: '600',
+    fontSize: 18,
+  },
+  videoButton: {
+    borderColor: '#FF3B30',
+  },
+  videoButtonInner: {
+    backgroundColor: '#FF3B30',
   },
 });
