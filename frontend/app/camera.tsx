@@ -39,8 +39,10 @@ export default function CameraScreen() {
   const [isRecording, setIsRecording] = useState(false);
   const [zoom, setZoom] = useState(0);
   const [mode, setMode] = useState<'PHOTO' | 'VIDEO'>('PHOTO');
+  const [cameraReady, setCameraReady] = useState(false);
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
+  const readyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Gesture state for overlay manipulation
   const [overlayTransform, setOverlayTransform] = useState({
