@@ -737,4 +737,18 @@ const styles = StyleSheet.create({
   videoButtonInner: {
     backgroundColor: '#FF3B30',
   },
+  readyIndicator: {
+    position: 'absolute',
+    bottom: 160,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(255, 193, 7, 0.9)',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 16,
+  },
+  readyText: {
+    color: '#000',
+    fontSize: 12,
+    fontWeight: '600',
+  },
 });
