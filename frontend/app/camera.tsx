@@ -200,19 +200,14 @@ export default function CameraScreen() {
 
   const savePhoto = async (uri: string, isBlended: boolean) => {
     try {
-      // Convert to base64 for storage
-      const base64 = await FileSystem.readAsStringAsync(uri, {
-        encoding: 'base64',
-      });
-
       // Get existing photos
       const existingPhotos = await AsyncStorage.getItem('dejaview_photos');
       const photos = existingPhotos ? JSON.parse(existingPhotos) : [];
 
-      // Add new photo
+      // Add new photo with URI (no base64 conversion needed)
       photos.unshift({
         id: Date.now().toString(),
-        uri: `data:image/jpeg;base64,${base64}`,
+        uri: uri,
         timestamp: new Date().toISOString(),
         isBlended,
       });
