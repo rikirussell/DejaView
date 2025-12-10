@@ -168,59 +168,56 @@ export default function CameraScreen() {
     }
 
     try {
+      Alert.alert('Processing', 'Blending images...', [{ text: 'OK' }]);
+
       // Step 1: Capture the current camera frame at full resolution
       const cameraPhoto = await cameraRef.current.takePictureAsync({
         quality: 1,
         skipProcessing: false,
+        exif: true,
       });
 
       if (!cameraPhoto) return;
 
-      // Step 2: Get the image dimensions to match overlay
-      const cameraImage = await ImageManipulator.manipulateAsync(
-        cameraPhoto.uri,
-        [],
-        { format: ImageManipulator.SaveFormat.JPEG }
-      );
+      // Step 2: Read both images with Jimp
+      const baseImage = await Jimp.read(cameraPhoto.uri);
+      const overlayImg = await Jimp.read(overlayImage);
 
-      // Step 3: Process overlay to match camera dimensions and apply transformations
-      const overlayProcessed = await ImageManipulator.manipulateAsync(
-        overlayImage,
-        [
-          { resize: { width: cameraImage.width, height: cameraImage.height } },
-        ],
-        { 
-          compress: 1, 
-          format: ImageManipulator.SaveFormat.PNG 
-        }
-      );
+      // Step 3: Resize overlay to match base image dimensions
+      overlayImg.resize(baseImage.getWidth(), baseImage.getHeight());
 
-      // Step 4: Create the blend by capturing a special blend view
-      // We'll use a canvas-like approach with opacity
-      // For now, use ImageManipulator to overlay
-      // Note: This creates a composite where overlay is applied with its opacity
+      // Step 4: Apply the opacity from slider to the overlay
+      // overlayOpacity ranges from 0 to 1
+      overlayImg.opacity(overlayOpacity);
+
+      // Step 5: Composite the images - overlay on top of camera image
+      baseImage.composite(overlayImg, 0, 0, {
+        mode: Jimp.BLEND_SOURCE_OVER,
+        opacitySource: 1.0,
+        opacityDest: 1.0,
+      });
+
+      // Step 6: Save the blended image
+      const blendedPath = `${FileSystem.cacheDirectory}blended_${Date.now()}.jpg`;
+      const base64 = await baseImage.getBase64Async(Jimp.MIME_JPEG);
       
-      // Since ImageManipulator doesn't have direct blend/composite:
-      // We'll create a temporary view to render both images and capture
-      Alert.alert(
-        'Blending',
-        'Creating blended image...',
-        [{ text: 'OK' }]
-      );
+      // Remove data URI prefix and write to file
+      const base64Data = base64.split(',')[1];
+      await FileSystem.writeAsStringAsync(blendedPath, base64Data, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
 
-      // Use the camera photo as base and overlay the reference
-      // This is a limitation - we need a better blending approach
-      // For now, save the camera photo and note this needs improvement
-      await savePhotoToLibrary(cameraPhoto.uri, true);
+      // Step 7: Save to Photos
+      await savePhotoToLibrary(blendedPath, true);
       
       Alert.alert(
-        'Note',
-        'Blend saved. Note: True pixel blending requires advanced processing.',
+        'Success',
+        `Blended image saved to Photos! (${Math.round(overlayOpacity * 100)}% blend)`,
         [{ text: 'OK' }]
       );
     } catch (error) {
       console.error('Error blending images:', error);
-      Alert.alert('Error', 'Failed to blend images. Please try again.');
+      Alert.alert('Error', `Failed to blend images: ${error.message}`);
     }
   };
 
