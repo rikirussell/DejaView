@@ -233,17 +233,24 @@ export default function CameraScreen() {
   const toggleRecording = async () => {
     if (!cameraRef.current) return;
 
+    // Check if camera is ready
+    if (!cameraReady) {
+      Alert.alert(
+        'Please Wait', 
+        'Camera is still initializing. Please wait a few seconds after opening the camera before recording.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
     try {
       if (isRecording) {
         // Stop recording
         cameraRef.current.stopRecording();
         setIsRecording(false);
       } else {
-        // Start recording with delay workaround
+        // Start recording
         setIsRecording(true);
-        
-        // Small delay to ensure camera is ready (workaround for SDK bug)
-        await new Promise(resolve => setTimeout(resolve, 500));
         
         const video = await cameraRef.current.recordAsync({
           maxDuration: 300, // 5 minutes max
@@ -262,7 +269,11 @@ export default function CameraScreen() {
       console.error('Error recording video:', error);
       setIsRecording(false);
       if (error.message?.includes('not ready')) {
-        Alert.alert('Error', 'Camera needs more time to initialize. Please wait a moment and try again.');
+        Alert.alert(
+          'Camera Not Ready', 
+          'The camera is still initializing. Please wait 3-5 seconds after opening the camera screen before starting a video recording.',
+          [{ text: 'OK' }]
+        );
       } else {
         Alert.alert('Error', 'Failed to record video. Please try again.');
       }
