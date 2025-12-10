@@ -8,6 +8,7 @@ import {
   Dimensions,
   Platform,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
