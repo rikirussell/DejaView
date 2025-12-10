@@ -427,6 +427,20 @@ export default function CameraScreen() {
             </View>
           )}
 
+          {/* Mode Selector */}
+          <View style={styles.modeSelector}>
+            <TouchableOpacity onPress={() => setMode('PHOTO')}>
+              <Text style={[styles.modeText, mode === 'PHOTO' && styles.modeTextActive]}>
+                PHOTO
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setMode('VIDEO')}>
+              <Text style={[styles.modeText, mode === 'VIDEO' && styles.modeTextActive]}>
+                VIDEO
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           {/* Bottom Controls */}
           <View style={styles.bottomControls}>
             <TouchableOpacity
@@ -443,27 +457,21 @@ export default function CameraScreen() {
               </Text>
             </TouchableOpacity>
 
-            <View style={styles.centerButtons}>
-              <TouchableOpacity
-                style={[
-                  styles.captureButton,
-                  isRecording && styles.recordingButton
-                ]}
-                onPress={toggleRecording}
-              >
-                <View style={[
-                  styles.captureButtonInner,
-                  isRecording && styles.recordingInner
-                ]} />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.photoButton}
-                onPress={capturePhoto}
-              >
-                <Ionicons name="camera" size={20} color="white" />
-              </TouchableOpacity>
-            </View>
+            {/* Single Capture Button - Changes based on mode */}
+            <TouchableOpacity
+              style={[
+                styles.captureButton,
+                mode === 'VIDEO' && styles.videoButton,
+                isRecording && styles.recordingButton
+              ]}
+              onPress={mode === 'VIDEO' ? toggleRecording : capturePhoto}
+            >
+              <View style={[
+                styles.captureButtonInner,
+                mode === 'VIDEO' && styles.videoButtonInner,
+                isRecording && styles.recordingInner
+              ]} />
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.controlButton}
