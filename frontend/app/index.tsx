@@ -72,14 +72,6 @@ export default function Index() {
           <Ionicons name="camera" size={24} color="white" />
           <Text style={styles.primaryButtonText}>Open Camera</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.secondaryButton}
-          onPress={() => router.push('/gallery')}
-        >
-          <Ionicons name="images-outline" size={24} color="#007AFF" />
-          <Text style={styles.secondaryButtonText}>View Gallery</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Footer */}
