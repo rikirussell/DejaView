@@ -265,16 +265,6 @@ export default function CameraScreen() {
     }
   };
 
-  const cycleAspectRatio = () => {
-    if (aspectRatio === '4:3') {
-      setAspectRatio('16:9');
-    } else if (aspectRatio === '16:9') {
-      setAspectRatio('1:1');
-    } else {
-      setAspectRatio('4:3');
-    }
-  };
-
   const savePhotoToLibrary = async (uri: string, isBlended: boolean) => {
     try {
       // Request media library permissions
