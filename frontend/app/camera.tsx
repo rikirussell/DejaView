@@ -87,15 +87,30 @@ export default function CameraScreen() {
       });
 
       if (!result.canceled && result.assets[0]) {
-        setOverlayImage(result.assets[0].uri);
-        // Reset transform when new image is loaded
+        const asset = result.assets[0];
+        setOverlayImage(asset.uri);
+        
+        // Calculate scale to fill screen while maintaining aspect ratio
+        const imageAspect = asset.width / asset.height;
+        const screenAspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+        let initialScale = 1;
+        
+        if (imageAspect > screenAspect) {
+          // Image is wider - scale to height
+          initialScale = SCREEN_HEIGHT / asset.height;
+        } else {
+          // Image is taller - scale to width
+          initialScale = SCREEN_WIDTH / asset.width;
+        }
+        
+        // Reset transform with proper initial scale
         setOverlayTransform({
           translateX: 0,
           translateY: 0,
-          scale: 1,
+          scale: initialScale,
           rotation: 0,
         });
-        setBaseScale(1);
+        setBaseScale(initialScale);
         setBaseRotation(0);
         setLastTranslate({ x: 0, y: 0 });
       }
