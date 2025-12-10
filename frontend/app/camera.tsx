@@ -134,12 +134,14 @@ export default function CameraScreen() {
     try {
       const photo = await cameraRef.current.takePictureAsync({
         quality: 1,
+        skipProcessing: false,
+        exif: true,
       });
 
       if (photo) {
-        // Save to storage
-        await savePhoto(photo.uri, false);
-        Alert.alert('Success', 'Photo captured and saved!');
+        // Save directly to Photos
+        await savePhotoToLibrary(photo.uri, false);
+        Alert.alert('Success', 'Photo saved to Photos!');
       }
     } catch (error) {
       console.error('Error capturing photo:', error);
