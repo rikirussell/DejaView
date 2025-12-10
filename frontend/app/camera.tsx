@@ -66,9 +66,10 @@ export default function CameraScreen() {
   const pickImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ['images'],
         allowsEditing: false,
         quality: 1,
+        allowsMultipleSelection: false,
       });
 
       if (!result.canceled && result.assets[0]) {
@@ -86,7 +87,7 @@ export default function CameraScreen() {
       }
     } catch (error) {
       console.error('Error picking image:', error);
-      Alert.alert('Error', 'Failed to load image from library');
+      Alert.alert('Error', 'Failed to load image from Photos');
     }
   };
 
