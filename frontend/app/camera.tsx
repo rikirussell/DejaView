@@ -318,12 +318,18 @@ export default function CameraScreen() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.container} ref={cameraViewRef} collapsable={false}>
-        {/* Camera View */}
-        <CameraView
-          ref={cameraRef}
-          style={styles.camera}
-          facing={facing}
-        >
+        {/* Camera View with Pinch Zoom */}
+        <PinchGestureHandler onGestureEvent={handlePinchZoom}>
+          <View style={styles.camera}>
+            <CameraView
+              ref={cameraRef}
+              style={styles.camera}
+              facing={facing}
+              zoom={zoom}
+              ratio={aspectRatio}
+              onCameraReady={() => setIsCameraReady(true)}
+              enableTorch={false}
+            />
           {/* Overlay Image with Gestures */}
           {overlayImage && (
             <RotationGestureHandler onGestureEvent={handleRotationGesture}>
