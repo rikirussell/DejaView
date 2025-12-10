@@ -453,6 +453,13 @@ export default function CameraScreen() {
             </TouchableOpacity>
           </View>
 
+          {/* Camera Ready Indicator (for VIDEO mode) */}
+          {mode === 'VIDEO' && !cameraReady && (
+            <View style={styles.readyIndicator}>
+              <Text style={styles.readyText}>Initializing camera...</Text>
+            </View>
+          )}
+
           {/* Bottom Controls */}
           <View style={styles.bottomControls}>
             <TouchableOpacity
