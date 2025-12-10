@@ -156,16 +156,15 @@ export default function CameraScreen() {
     }
 
     try {
-      // Capture current camera frame
+      // Capture current camera frame at full quality
       const photo = await cameraRef.current.takePictureAsync({
         quality: 1,
+        skipProcessing: false,
+        exif: true,
       });
 
       if (!photo) return;
 
-      // Resize overlay to match photo dimensions
-      const photoInfo = await FileSystem.getInfoAsync(photo.uri);
-      
       // Load and process the overlay image
       const processedOverlay = await ImageManipulator.manipulateAsync(
         overlayImage,
@@ -185,12 +184,12 @@ export default function CameraScreen() {
         { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
       );
 
-      // Save the blended result
-      await savePhoto(blended.uri, true);
+      // Save the blended result to Photos
+      await savePhotoToLibrary(blended.uri, true);
       
       Alert.alert(
         'Success',
-        'Images blended and saved! Check your gallery.',
+        'Blended image saved to Photos!',
         [{ text: 'OK' }]
       );
     } catch (error) {
