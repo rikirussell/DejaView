@@ -315,6 +315,8 @@ export default function CameraScreen() {
               <Ionicons name="close" size={32} color="white" />
             </TouchableOpacity>
 
+            <View style={styles.spacer} />
+
             <TouchableOpacity
               style={styles.iconButton}
               onPress={() => setShowGuides(!showGuides)}
@@ -324,13 +326,6 @@ export default function CameraScreen() {
                 size={28}
                 color="white"
               />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => router.push('/gallery')}
-            >
-              <Ionicons name="images" size={28} color="white" />
             </TouchableOpacity>
           </View>
 
