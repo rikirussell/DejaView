@@ -207,23 +207,7 @@ export default function CameraScreen() {
 
       // Step 2: For now, just save the camera photo
       // True pixel blending requires native modules or canvas processing
-      // The overlay serves as a reference during capture
-      
-      // Process overlay to match camera size
-      const processedOverlay = await ImageManipulator.manipulateAsync(
-        overlayImage,
-        [
-          { resize: { width: cameraImage[0], height: cameraImage[1] } },
-        ],
-        { compress: 1, format: ImageManipulator.SaveFormat.PNG }
-      );
-
-      // Step 3: Create a canvas-style blend
-      // Note: This creates the overlay effect but true pixel blending requires native code
-      // For now, we overlay the processed image with the camera background
-      
-      // Since ImageManipulator doesn't support true blend, we save camera photo
-      // and indicate this is the blended version
+      // The overlay serves as a visual reference during capture
       await savePhotoToLibrary(cameraPhoto.uri, true);
       
       Alert.alert(
