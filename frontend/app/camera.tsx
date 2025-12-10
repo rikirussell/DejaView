@@ -152,42 +152,36 @@ export default function CameraScreen() {
   };
 
   const blendImages = async () => {
-    if (!cameraRef.current || !overlayImage) {
+    if (!cameraViewRef.current || !overlayImage) {
       Alert.alert('Error', 'Please load a reference image first');
       return;
     }
 
     try {
-      // Capture current camera frame at full quality
-      const photo = await cameraRef.current.takePictureAsync({
-        quality: 1,
-        skipProcessing: false,
-        exif: true,
+      // Temporarily hide guides for clean capture
+      const guidesWereVisible = showGuides;
+      if (guidesWereVisible) {
+        setShowGuides(false);
+      }
+
+      // Wait a moment for guides to hide
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Capture the camera view WITH the overlay visible
+      // This captures exactly what the user sees - the blended result
+      const uri = await captureRef(cameraViewRef, {
+        format: 'jpg',
+        quality: 1.0,
+        result: 'tmpfile',
       });
 
-      if (!photo) return;
-
-      // Load and process the overlay image
-      const processedOverlay = await ImageManipulator.manipulateAsync(
-        overlayImage,
-        [
-          { resize: { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } },
-          { rotate: (overlayTransform.rotation * 180) / Math.PI },
-        ],
-        { compress: 1, format: ImageManipulator.SaveFormat.PNG }
-      );
-
-      // Create a composite by layering images
-      // Note: This is a simplified blend. For true pixel-level blending,
-      // we would need a native module or canvas-based solution
-      const blended = await ImageManipulator.manipulateAsync(
-        photo.uri,
-        [],
-        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
-      );
+      // Restore guides if they were visible
+      if (guidesWereVisible) {
+        setShowGuides(true);
+      }
 
       // Save the blended result to Photos
-      await savePhotoToLibrary(blended.uri, true);
+      await savePhotoToLibrary(uri, true);
       
       Alert.alert(
         'Success',
@@ -197,6 +191,8 @@ export default function CameraScreen() {
     } catch (error) {
       console.error('Error blending images:', error);
       Alert.alert('Error', 'Failed to blend images. Please try again.');
+      // Restore guides on error
+      setShowGuides(showGuides);
     }
   };
 
