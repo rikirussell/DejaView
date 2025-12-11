@@ -448,24 +448,30 @@ export default function CameraScreen() {
             </View>
           )}
 
-          {/* Aspect Ratio Controls */}
-          <View style={styles.aspectRatioControls}>
-            <TouchableOpacity onPress={() => setAspectRatio('4:3')}>
-              <Text style={[styles.aspectText, aspectRatio === '4:3' && styles.aspectTextActive]}>
-                4:3
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setAspectRatio('1:1')}>
-              <Text style={[styles.aspectText, aspectRatio === '1:1' && styles.aspectTextActive]}>
-                1:1
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setAspectRatio('16:9')}>
-              <Text style={[styles.aspectText, aspectRatio === '16:9' && styles.aspectTextActive]}>
-                16:9
-              </Text>
-            </TouchableOpacity>
+          {/* Zoom Slider */}
+          <View style={styles.zoomSlider}>
+            <Ionicons name="remove" size={20} color="white" />
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={1}
+              value={zoom}
+              onValueChange={setZoom}
+              minimumTrackTintColor="#FFD60A"
+              maximumTrackTintColor="rgba(255,255,255,0.3)"
+              thumbTintColor="#FFD60A"
+            />
+            <Ionicons name="add" size={20} color="white" />
           </View>
+
+          {/* Macro Mode Toggle */}
+          <TouchableOpacity
+            style={[styles.macroButton, enableMacro && styles.macroButtonActive]}
+            onPress={() => setEnableMacro(!enableMacro)}
+          >
+            <Ionicons name="flower-outline" size={24} color={enableMacro ? '#FFD60A' : 'white'} />
+            <Text style={styles.macroText}>MACRO</Text>
+          </TouchableOpacity>
 
           {/* Video Quality Controls (only show in VIDEO mode) */}
           {mode === 'VIDEO' && (
