@@ -1,37 +1,42 @@
 diff --git a/model.patch b/model.patch
-index bf75259..e69de29 100644
+index aed1c1b..e69de29 100644
 --- a/model.patch
 +++ b/model.patch
-@@ -1,32 +0,0 @@
+@@ -1,37 +0,0 @@
 -diff --git a/model.patch b/model.patch
--index b4d90f7..e69de29 100644
+-index bf75259..e69de29 100644
 ---- a/model.patch
 -+++ b/model.patch
--@@ -1,27 +0,0 @@
+-@@ -1,32 +0,0 @@
 --diff --git a/model.patch b/model.patch
---index 0300ea5..e69de29 100644
+--index b4d90f7..e69de29 100644
 ----- a/model.patch
 --+++ b/model.patch
---@@ -1,22 +0,0 @@
----diff --git a/frontend/app/gallery.tsx b/frontend/app/gallery.tsx
----index 1395f26..63236e3 100644
------- a/frontend/app/gallery.tsx
----+++ b/frontend/app/gallery.tsx
----@@ -79,7 +79,7 @@ export default function GalleryScreen() {
----       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
----       
----       await FileSystem.writeAsStringAsync(filepath, base64Data, {
-----        encoding: FileSystem.EncodingType.Base64,
----+        encoding: 'base64',
----       });
---- 
----       // Save to media library
----@@ -107,7 +107,7 @@ export default function GalleryScreen() {
----       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
----       
----       await FileSystem.writeAsStringAsync(filepath, base64Data, {
-----        encoding: FileSystem.EncodingType.Base64,
----+        encoding: 'base64',
----       });
---- 
----       await Sharing.shareAsync(filepath);
+--@@ -1,27 +0,0 @@
+---diff --git a/model.patch b/model.patch
+---index 0300ea5..e69de29 100644
+------ a/model.patch
+---+++ b/model.patch
+---@@ -1,22 +0,0 @@
+----diff --git a/frontend/app/gallery.tsx b/frontend/app/gallery.tsx
+----index 1395f26..63236e3 100644
+------- a/frontend/app/gallery.tsx
+----+++ b/frontend/app/gallery.tsx
+----@@ -79,7 +79,7 @@ export default function GalleryScreen() {
+----       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
+----       
+----       await FileSystem.writeAsStringAsync(filepath, base64Data, {
+-----        encoding: FileSystem.EncodingType.Base64,
+----+        encoding: 'base64',
+----       });
+---- 
+----       // Save to media library
+----@@ -107,7 +107,7 @@ export default function GalleryScreen() {
+----       const base64Data = photo.uri.replace(/^data:image\/\w+;base64,/, '');
+----       
+----       await FileSystem.writeAsStringAsync(filepath, base64Data, {
+-----        encoding: FileSystem.EncodingType.Base64,
+----+        encoding: 'base64',
+----       });
+---- 
+----       await Sharing.shareAsync(filepath);
