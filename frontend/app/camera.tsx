@@ -69,23 +69,15 @@ export default function CameraScreen() {
     return Math.max(scaleX, scaleY);
   };
 
-  // Recalculate overlay scale when orientation changes
+  // Reset overlay position when orientation changes (image auto-fills with cover mode)
   useEffect(() => {
     if (overlayImageSize && overlayImage) {
-      const newScale = calculateFillScale(
-        overlayImageSize.width,
-        overlayImageSize.height,
-        screenWidth,
-        screenHeight
-      );
-      
+      // Reset position on orientation change, keep current scale
       setOverlayTransform(prev => ({
         ...prev,
-        scale: newScale,
         translateX: 0,
         translateY: 0,
       }));
-      setBaseScale(newScale);
       setLastTranslate({ x: 0, y: 0 });
     }
   }, [screenWidth, screenHeight]);
