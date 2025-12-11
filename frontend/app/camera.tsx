@@ -494,27 +494,6 @@ export default function CameraScreen() {
             <Ionicons name="add" size={20} color="white" />
           </View>
 
-          {/* Video Quality Controls (only show in VIDEO mode) */}
-          {mode === 'VIDEO' && (
-            <View style={styles.videoQualityControls}>
-              <TouchableOpacity onPress={() => setVideoQuality('4K')}>
-                <Text style={[styles.qualityText, videoQuality === '4K' && styles.qualityTextActive]}>
-                  4K
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setVideoQuality('1080p')}>
-                <Text style={[styles.qualityText, videoQuality === '1080p' && styles.qualityTextActive]}>
-                  1080p
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setVideoQuality('720p')}>
-                <Text style={[styles.qualityText, videoQuality === '720p' && styles.qualityTextActive]}>
-                  720p
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-
           {/* Mode Selector */}
           <View style={styles.modeSelector}>
             <TouchableOpacity onPress={() => setMode('PHOTO')}>
