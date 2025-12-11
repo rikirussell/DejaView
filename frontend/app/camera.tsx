@@ -251,9 +251,16 @@ export default function CameraScreen() {
         // Start recording
         setIsRecording(true);
         
+        // Quality settings based on selection
+        const qualitySettings = {
+          '4K': { videoBitrate: 50000000 }, // 50 Mbps - highest quality
+          '1080p': { videoBitrate: 20000000 }, // 20 Mbps - high quality  
+          '720p': { videoBitrate: 10000000 }, // 10 Mbps - good quality
+        };
+        
         const video = await cameraRef.current.recordAsync({
           maxDuration: 300, // 5 minutes max
-          videoBitrate: 10000000, // 10 Mbps for high quality
+          ...qualitySettings[videoQuality],
           mute: false,
         });
 
