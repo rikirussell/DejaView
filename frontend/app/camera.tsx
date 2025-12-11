@@ -138,22 +138,15 @@ export default function CameraScreen() {
         setOverlayImageSize({ width: asset.width, height: asset.height });
         setOverlayImage(asset.uri);
         
-        // Calculate scale to fill current screen dimensions
-        const initialScale = calculateFillScale(
-          asset.width,
-          asset.height,
-          screenWidth,
-          screenHeight
-        );
-        
-        // Reset transform with proper initial scale
+        // With resizeMode="cover", the image will fill the screen automatically
+        // Start with scale 1 - image will fill screen
         setOverlayTransform({
           translateX: 0,
           translateY: 0,
-          scale: initialScale,
+          scale: 1,
           rotation: 0,
         });
-        setBaseScale(initialScale);
+        setBaseScale(1);
         setBaseRotation(0);
         setLastTranslate({ x: 0, y: 0 });
       }
