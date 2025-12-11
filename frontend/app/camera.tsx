@@ -43,7 +43,7 @@ export default function CameraScreen() {
   const [videoQuality, setVideoQuality] = useState<'4K' | '1080p' | '720p'>('4K');
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
-  const readyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const readyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const blinkAnim = useRef(new Animated.Value(1)).current;
   const blinkAnimRef = useRef<Animated.CompositeAnimation | null>(null);
 
