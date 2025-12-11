@@ -830,6 +830,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 8,
   },
+  videoQualityControls: {
+    position: 'absolute',
+    top: 100,
+    left: 16,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  qualityText: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.6)',
+    fontWeight: '500',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  qualityTextActive: {
+    color: '#FF3B30',
+    fontWeight: '700',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 8,
+  },
   cropOverlay: {
     position: 'absolute',
     top: 0,
