@@ -599,12 +599,12 @@ export default function CameraScreen() {
           </View>
         </PinchGestureHandler>
 
-        {/* Recording Indicator */}
+        {/* Small REC Indicator in Corner */}
         {isRecording && (
-          <View style={styles.recordingIndicator}>
-            <View style={styles.recordingDot} />
-            <Text style={styles.recordingText}>Recording...</Text>
-          </View>
+          <Animated.View style={[styles.recIndicator, { opacity: blinkAnim }]}>
+            <View style={styles.recDot} />
+            <Text style={styles.recText}>REC</Text>
+          </Animated.View>
         )}
       </View>
     </GestureHandlerRootView>
