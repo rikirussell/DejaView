@@ -483,7 +483,7 @@ export default function CameraScreen() {
           )}
 
           {/* Zoom Slider */}
-          <View style={styles.zoomSlider}>
+          <View style={styles.zoomControl}>
             <Ionicons name="remove" size={20} color="white" />
             <Slider
               style={styles.slider}
@@ -497,15 +497,6 @@ export default function CameraScreen() {
             />
             <Ionicons name="add" size={20} color="white" />
           </View>
-
-          {/* Macro Mode Toggle */}
-          <TouchableOpacity
-            style={[styles.macroButton, enableMacro && styles.macroButtonActive]}
-            onPress={() => setEnableMacro(!enableMacro)}
-          >
-            <Ionicons name="flower-outline" size={24} color={enableMacro ? '#FFD60A' : 'white'} />
-            <Text style={styles.macroText}>MACRO</Text>
-          </TouchableOpacity>
 
           {/* Video Quality Controls (only show in VIDEO mode) */}
           {mode === 'VIDEO' && (
