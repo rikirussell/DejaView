@@ -339,6 +339,7 @@ export default function CameraScreen() {
 
   const clearOverlay = () => {
     setOverlayImage(null);
+    setOverlayImageSize(null);
     setOverlayTransform({
       translateX: 0,
       translateY: 0,
