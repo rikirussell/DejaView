@@ -5,15 +5,19 @@
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
-    "scheme": "frontend",
+    "scheme": "dejaview",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.dejaview.app",
+      "buildNumber": "1",
       "infoPlist": {
-        "NSCameraUsageDescription": "DejaView needs access to your camera to capture photos and overlay previous images.",
-        "NSPhotoLibraryUsageDescription": "DejaView needs access to your photo library to load previous photos for alignment.",
-        "NSPhotoLibraryAddUsageDescription": "DejaView needs permission to save blended photos to your library."
+        "NSCameraUsageDescription": "DejaView needs access to your camera to capture photos and videos with overlay alignment.",
+        "NSPhotoLibraryUsageDescription": "DejaView needs access to your photo library to load reference images for alignment.",
+        "NSPhotoLibraryAddUsageDescription": "DejaView needs permission to save captured photos and videos to your library.",
+        "NSMicrophoneUsageDescription": "DejaView needs microphone access to record video with audio.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -21,12 +25,16 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0c0c0c"
       },
+      "package": "com.dejaview.app",
+      "versionCode": 1,
       "edgeToEdgeEnabled": true,
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
-        "READ_MEDIA_IMAGES"
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO",
+        "RECORD_AUDIO"
       ]
     },
     "web": {
@@ -39,29 +47,31 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/dejaview-logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#000"
+          "backgroundColor": "#0c0c0c"
         }
       ],
       [
         "expo-camera",
         {
-          "cameraPermission": "DejaView needs access to your camera to capture and align photos."
+          "cameraPermission": "DejaView needs access to your camera to capture and align photos.",
+          "microphonePermission": "DejaView needs microphone access to record video with audio.",
+          "recordAudioAndroid": true
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "DejaView needs access to your photos to load previous images for alignment."
+          "photosPermission": "DejaView needs access to your photos to load reference images for alignment."
         }
       ],
       [
         "expo-media-library",
         {
-          "photosPermission": "Allow DejaView to save photos to your library.",
-          "savePhotosPermission": "Allow DejaView to save photos to your library.",
+          "photosPermission": "Allow DejaView to access photos for overlay reference.",
+          "savePhotosPermission": "Allow DejaView to save captured photos and videos.",
           "isAccessMediaLocationEnabled": true
         }
       ],
@@ -70,6 +80,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
     }
   }
 }
