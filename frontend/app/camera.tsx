@@ -370,7 +370,13 @@ export default function CameraScreen() {
 
   if (!permission.granted) {
     return (
-      <View style={styles.container}>
+      <View style={styles.permissionContainer}>
+        <Image 
+          source={require('../assets/images/dejaview-logo.png')} 
+          style={styles.permissionLogo}
+          resizeMode="contain"
+        />
+        <Text style={styles.permissionTitle}>DejaView</Text>
         <Text style={styles.permissionText}>
           Camera permission is required to use DejaView
         </Text>
