@@ -9,6 +9,7 @@ import {
   Platform,
   Alert,
   Animated,
+  useWindowDimensions,
 } from 'react-native';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
