@@ -249,9 +249,11 @@ export default function CameraScreen() {
         // Stop recording
         cameraRef.current.stopRecording();
         setIsRecording(false);
+        stopBlinkAnimation();
       } else {
         // Start recording
         setIsRecording(true);
+        startBlinkAnimation();
         
         // Quality settings based on selection
         const qualitySettings = {
@@ -272,10 +274,12 @@ export default function CameraScreen() {
           Alert.alert('Success', 'Video saved to Photos!');
         }
         setIsRecording(false);
+        stopBlinkAnimation();
       }
     } catch (error: any) {
       console.error('Error recording video:', error);
       setIsRecording(false);
+      stopBlinkAnimation();
       if (error.message?.includes('not ready')) {
         Alert.alert(
           'Camera Not Ready', 
