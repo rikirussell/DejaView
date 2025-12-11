@@ -664,6 +664,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  cameraLogo: {
+    width: 40,
+    height: 40,
+  },
   spacer: {
     width: 44,
   },
