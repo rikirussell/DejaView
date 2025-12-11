@@ -769,4 +769,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  aspectRatioControls: {
+    position: 'absolute',
+    top: 100,
+    right: 16,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 12,
+  },
+  aspectText: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.6)',
+    fontWeight: '500',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  aspectTextActive: {
+    color: '#FFD60A',
+    fontWeight: '700',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 8,
+  },
 });
