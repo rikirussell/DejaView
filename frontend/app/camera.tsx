@@ -263,8 +263,6 @@ export default function CameraScreen() {
         
         const video = await cameraRef.current.recordAsync({
           maxDuration: 300, // 5 minutes max
-          ...qualitySettings[videoQuality],
-          mute: false,
         });
 
         if (video) {
