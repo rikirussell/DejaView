@@ -40,6 +40,7 @@ export default function CameraScreen() {
   const [zoom, setZoom] = useState(0);
   const [mode, setMode] = useState<'PHOTO' | 'VIDEO'>('PHOTO');
   const [cameraReady, setCameraReady] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState<'4:3' | '1:1' | '16:9'>('4:3');
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
   const readyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
