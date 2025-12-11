@@ -45,6 +45,8 @@ export default function CameraScreen() {
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
   const readyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const blinkAnim = useRef(new Animated.Value(1)).current;
+  const blinkAnimRef = useRef<Animated.CompositeAnimation | null>(null);
 
   // Gesture state for overlay manipulation
   const [overlayTransform, setOverlayTransform] = useState({
