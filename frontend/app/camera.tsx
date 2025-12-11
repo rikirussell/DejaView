@@ -41,7 +41,6 @@ export default function CameraScreen() {
   const [mode, setMode] = useState<'PHOTO' | 'VIDEO'>('PHOTO');
   const [cameraReady, setCameraReady] = useState(false);
   const [videoQuality, setVideoQuality] = useState<'4K' | '1080p' | '720p'>('4K');
-  const [enableMacro, setEnableMacro] = useState(false);
   const cameraRef = useRef<CameraView>(null);
   const cameraViewRef = useRef<View>(null);
   const readyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
