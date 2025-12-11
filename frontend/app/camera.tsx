@@ -449,12 +449,7 @@ export default function CameraScreen() {
               <Ionicons name="close" size={32} color="white" />
             </TouchableOpacity>
 
-            {/* DejaView Logo */}
-            <Image 
-              source={require('../assets/images/dejaview-logo.png')} 
-              style={styles.cameraLogo}
-              resizeMode="contain"
-            />
+            <View style={styles.spacer} />
 
             <TouchableOpacity
               style={styles.iconButton}
