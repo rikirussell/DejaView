@@ -333,6 +333,34 @@ export default function CameraScreen() {
     setLastTranslate({ x: 0, y: 0 });
   };
 
+  // Start blinking animation for REC indicator
+  const startBlinkAnimation = () => {
+    blinkAnimRef.current = Animated.loop(
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    blinkAnimRef.current.start();
+  };
+
+  // Stop blinking animation
+  const stopBlinkAnimation = () => {
+    if (blinkAnimRef.current) {
+      blinkAnimRef.current.stop();
+      blinkAnimRef.current = null;
+    }
+    blinkAnim.setValue(1);
+  };
+
   if (!permission) {
     return <View style={styles.container} />;
   }
