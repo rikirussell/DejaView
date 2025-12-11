@@ -102,18 +102,24 @@ export default function CameraScreen() {
         const asset = result.assets[0];
         setOverlayImage(asset.uri);
         
-        // Calculate scale to fill screen while maintaining aspect ratio
+        // Calculate scale to COVER screen (fill completely) while maintaining aspect ratio
         const imageAspect = asset.width / asset.height;
         const screenAspect = SCREEN_WIDTH / SCREEN_HEIGHT;
         let initialScale = 1;
         
+        // Always scale to cover the entire screen
         if (imageAspect > screenAspect) {
-          // Image is wider - scale to height
-          initialScale = SCREEN_HEIGHT / asset.height;
-        } else {
-          // Image is taller - scale to width
+          // Image is wider - scale to width to fill screen
           initialScale = SCREEN_WIDTH / asset.width;
+        } else {
+          // Image is taller or same - scale to height to fill screen
+          initialScale = SCREEN_HEIGHT / asset.height;
         }
+        
+        // Make sure we scale up enough to cover
+        const scaleX = SCREEN_WIDTH / asset.width;
+        const scaleY = SCREEN_HEIGHT / asset.height;
+        initialScale = Math.max(scaleX, scaleY); // Use the larger scale to ensure full coverage
         
         // Reset transform with proper initial scale
         setOverlayTransform({
