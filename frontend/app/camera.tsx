@@ -32,9 +32,11 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export default function CameraScreen() {
   const router = useRouter();
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const [permission, requestPermission] = useCameraPermissions();
   const [facing, setFacing] = useState<CameraType>('back');
   const [overlayImage, setOverlayImage] = useState<string | null>(null);
+  const [overlayImageSize, setOverlayImageSize] = useState<{width: number, height: number} | null>(null);
   const [overlayOpacity, setOverlayOpacity] = useState(0.5);
   const [showGuides, setShowGuides] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
