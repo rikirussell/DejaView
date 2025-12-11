@@ -432,7 +432,7 @@ export default function CameraScreen() {
                   >
                     <Image
                       source={{ uri: overlayImage }}
-                      style={styles.overlayImage}
+                      style={{ width: screenWidth, height: screenHeight }}
                       resizeMode="contain"
                     />
                   </View>
