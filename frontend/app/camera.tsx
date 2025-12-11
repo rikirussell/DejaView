@@ -438,6 +438,25 @@ export default function CameraScreen() {
             </View>
           )}
 
+          {/* Aspect Ratio Controls */}
+          <View style={styles.aspectRatioControls}>
+            <TouchableOpacity onPress={() => setAspectRatio('4:3')}>
+              <Text style={[styles.aspectText, aspectRatio === '4:3' && styles.aspectTextActive]}>
+                4:3
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setAspectRatio('1:1')}>
+              <Text style={[styles.aspectText, aspectRatio === '1:1' && styles.aspectTextActive]}>
+                1:1
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setAspectRatio('16:9')}>
+              <Text style={[styles.aspectText, aspectRatio === '16:9' && styles.aspectTextActive]}>
+                16:9
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           {/* Mode Selector */}
           <View style={styles.modeSelector}>
             <TouchableOpacity onPress={() => setMode('PHOTO')}>
