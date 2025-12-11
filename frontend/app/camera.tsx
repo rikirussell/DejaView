@@ -352,6 +352,7 @@ export default function CameraScreen() {
               facing={facing}
               zoom={zoom}
               mode={mode === 'VIDEO' ? 'video' : 'picture'}
+              ratio={aspectRatio}
             />
           {/* Overlay Image with Gestures */}
           {overlayImage && (
