@@ -705,6 +705,18 @@ const styles = StyleSheet.create({
     width: 40,
     textAlign: 'right',
   },
+  zoomControl: {
+    position: 'absolute',
+    bottom: 180,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+  },
   bottomControls: {
     position: 'absolute',
     bottom: 40,
