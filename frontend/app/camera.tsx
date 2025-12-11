@@ -354,6 +354,16 @@ export default function CameraScreen() {
               mode={mode === 'VIDEO' ? 'video' : 'picture'}
               ratio={aspectRatio}
             />
+
+          {/* Aspect Ratio Crop Overlay */}
+          <View style={styles.cropOverlay} pointerEvents="none">
+            <View style={[
+              styles.cropFrame,
+              aspectRatio === '1:1' && styles.cropFrame11,
+              aspectRatio === '16:9' && styles.cropFrame169,
+            ]} />
+          </View>
+
           {/* Overlay Image with Gestures */}
           {overlayImage && (
             <RotationGestureHandler onGestureEvent={handleRotationGesture}>
