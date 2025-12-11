@@ -433,7 +433,7 @@ export default function CameraScreen() {
                     <Image
                       source={{ uri: overlayImage }}
                       style={{ width: screenWidth, height: screenHeight }}
-                      resizeMode="contain"
+                      resizeMode="cover"
                     />
                   </View>
                 </PanGestureHandler>
