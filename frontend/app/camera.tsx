@@ -595,8 +595,26 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
-  permissionText: {
+  permissionContainer: {
+    flex: 1,
+    backgroundColor: '#0c0c0c',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+  },
+  permissionLogo: {
+    width: 120,
+    height: 120,
+    marginBottom: 16,
+  },
+  permissionTitle: {
+    fontSize: 32,
+    fontWeight: '700',
     color: 'white',
+    marginBottom: 24,
+  },
+  permissionText: {
+    color: '#999',
     fontSize: 16,
     textAlign: 'center',
     marginHorizontal: 32,
@@ -606,7 +624,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 8,
+    borderRadius: 12,
   },
   permissionButtonText: {
     color: 'white',
