@@ -61,6 +61,35 @@ export default function CameraScreen() {
   const [baseRotation, setBaseRotation] = useState(0);
   const [lastTranslate, setLastTranslate] = useState({ x: 0, y: 0 });
 
+  // Helper function to calculate scale that fills the screen
+  const calculateFillScale = (imageWidth: number, imageHeight: number, currentScreenWidth: number, currentScreenHeight: number) => {
+    const scaleX = currentScreenWidth / imageWidth;
+    const scaleY = currentScreenHeight / imageHeight;
+    // Use the larger scale to ensure full coverage (fill mode)
+    return Math.max(scaleX, scaleY);
+  };
+
+  // Recalculate overlay scale when orientation changes
+  useEffect(() => {
+    if (overlayImageSize && overlayImage) {
+      const newScale = calculateFillScale(
+        overlayImageSize.width,
+        overlayImageSize.height,
+        screenWidth,
+        screenHeight
+      );
+      
+      setOverlayTransform(prev => ({
+        ...prev,
+        scale: newScale,
+        translateX: 0,
+        translateY: 0,
+      }));
+      setBaseScale(newScale);
+      setLastTranslate({ x: 0, y: 0 });
+    }
+  }, [screenWidth, screenHeight]);
+
   useEffect(() => {
     requestPermissions();
     // Unlock all orientations for camera screen
