@@ -472,10 +472,11 @@ export default function CameraScreen() {
           )}
 
           {/* Zoom Slider */}
+          {/* Vertical Zoom Slider - Right Side */}
           <View style={styles.zoomControl}>
-            <Ionicons name="remove" size={20} color="white" />
+            <Ionicons name="add" size={18} color="rgba(255,255,255,0.8)" />
             <Slider
-              style={styles.slider}
+              style={styles.verticalSlider}
               minimumValue={0}
               maximumValue={1}
               value={zoom}
@@ -484,7 +485,7 @@ export default function CameraScreen() {
               maximumTrackTintColor="rgba(255,255,255,0.3)"
               thumbTintColor="#FFD60A"
             />
-            <Ionicons name="add" size={20} color="white" />
+            <Ionicons name="remove" size={18} color="rgba(255,255,255,0.8)" />
           </View>
 
           {/* Mode Selector */}
