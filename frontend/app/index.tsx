@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
+  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,9 +23,11 @@ export default function Index() {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.logoContainer}>
-          <View style={styles.logoCircle}>
-            <Ionicons name="camera" size={40} color="white" />
-          </View>
+          <Image 
+            source={require('../assets/images/dejaview-logo.png')} 
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
           <Text style={styles.logoText}>DejaView</Text>
         </View>
         <Text style={styles.tagline}>Perfect alignment, every time</Text>
