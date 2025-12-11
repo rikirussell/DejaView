@@ -818,19 +818,21 @@ const styles = StyleSheet.create({
     // Default 4:3 - full screen, no mask
   },
   cropFrame11: {
-    // 1:1 Square
+    // 1:1 Square - show square in center
     width: SCREEN_WIDTH,
     height: SCREEN_WIDTH,
-    borderTopWidth: (SCREEN_HEIGHT - SCREEN_WIDTH) / 2,
-    borderBottomWidth: (SCREEN_HEIGHT - SCREEN_WIDTH) / 2,
-    borderColor: 'rgba(0, 0, 0, 0.6)',
+    borderTopWidth: Math.max((SCREEN_HEIGHT - SCREEN_WIDTH) / 2, 0),
+    borderBottomWidth: Math.max((SCREEN_HEIGHT - SCREEN_WIDTH) / 2, 0),
+    borderColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'transparent',
   },
   cropFrame169: {
-    // 16:9 Widescreen
+    // 16:9 Widescreen - show wider rectangle
     width: SCREEN_WIDTH,
-    height: (SCREEN_WIDTH * 9) / 16,
-    borderTopWidth: (SCREEN_HEIGHT - (SCREEN_WIDTH * 9) / 16) / 2,
-    borderBottomWidth: (SCREEN_HEIGHT - (SCREEN_WIDTH * 9) / 16) / 2,
-    borderColor: 'rgba(0, 0, 0, 0.6)',
+    height: SCREEN_WIDTH * (9 / 16),
+    borderTopWidth: Math.max((SCREEN_HEIGHT - SCREEN_WIDTH * (9 / 16)) / 2, 0),
+    borderBottomWidth: Math.max((SCREEN_HEIGHT - SCREEN_WIDTH * (9 / 16)) / 2, 0),
+    borderColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'transparent',
   },
 });
