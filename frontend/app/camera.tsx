@@ -801,4 +801,36 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 8,
   },
+  cropOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cropFrame: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    borderWidth: 0,
+    borderColor: 'transparent',
+    // Default 4:3 - full screen, no mask
+  },
+  cropFrame11: {
+    // 1:1 Square
+    width: SCREEN_WIDTH,
+    height: SCREEN_WIDTH,
+    borderTopWidth: (SCREEN_HEIGHT - SCREEN_WIDTH) / 2,
+    borderBottomWidth: (SCREEN_HEIGHT - SCREEN_WIDTH) / 2,
+    borderColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  cropFrame169: {
+    // 16:9 Widescreen
+    width: SCREEN_WIDTH,
+    height: (SCREEN_WIDTH * 9) / 16,
+    borderTopWidth: (SCREEN_HEIGHT - (SCREEN_WIDTH * 9) / 16) / 2,
+    borderBottomWidth: (SCREEN_HEIGHT - (SCREEN_WIDTH * 9) / 16) / 2,
+    borderColor: 'rgba(0, 0, 0, 0.6)',
+  },
 });
